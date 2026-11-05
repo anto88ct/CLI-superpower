@@ -3,7 +3,9 @@ use serde_json::json;
 
 #[test]
 fn documented_layers_merge() {
-    let mut examples = include_str!("../../../../docs/config-schema.md")
+    // Normalizza CRLF: su Windows il checkout con autocrlf converte il documento.
+    let schema = include_str!("../../../../docs/config-schema.md").replace("\r\n", "\n");
+    let mut examples = schema
         .split("```json\n")
         .skip(1)
         .map(|block| parse_json(block.split("```").next().unwrap()).unwrap());
