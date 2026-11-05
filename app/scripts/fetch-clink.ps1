@@ -19,14 +19,24 @@ try {
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -UseBasicParsing -OutFile $zip `
         -Uri "https://github.com/chrisant996/clink/releases/download/v$version/$file"
-    $actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
+    # Hash ed estrazione via .NET: Get-FileHash ed Expand-Archive sono funzioni di
+    # modulo che Windows PowerShell 5.1 non carica quando eredita il PSModulePath
+    # di pwsh 7 (es. step CI con shell pwsh che invoca powershell.exe).
+    $stream = [IO.File]::OpenRead($zip)
+    try {
+        $sha = [Security.Cryptography.SHA256]::Create()
+        $actual = -join ($sha.ComputeHash($stream) | ForEach-Object { $_.ToString('X2') })
+    } finally {
+        $stream.Dispose()
+    }
     if ($actual -ne $sha256) {
         throw "Hash di Clink non valido: $actual"
     }
     if (Test-Path -LiteralPath $target) {
         Remove-Item -LiteralPath $target -Recurse -Force
     }
-    Expand-Archive -LiteralPath $zip -DestinationPath $target
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    [IO.Compression.ZipFile]::ExtractToDirectory($zip, $target)
     Set-Content -LiteralPath $marker -Value $sha256 -Encoding ascii
 } finally {
     Remove-Item -LiteralPath $temp -Recurse -Force -ErrorAction SilentlyContinue
