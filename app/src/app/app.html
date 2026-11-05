@@ -1,0 +1,503 @@
+<svg class="sp-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><clipPath id="sp-clip-l"><path d="M0 0H31L26 13L31 21L22 40H0z"/></clipPath><clipPath id="sp-clip-r"><path d="M35 0H48V40H26L35 21L30 13z"/></clipPath></defs></svg>
+<div class="shell">
+  <aside class="sidebar" [attr.inert]="walkthroughStep !== null ? '' : null">
+    <div class="brand"><img src="terminal-spezzato.png" alt="" width="56" height="56"><div><strong>CLI Superpower</strong></div></div>
+    <p class="nav-label">Configurazione</p>
+    <nav aria-label="Sezioni configurazione">
+      <button type="button" [class.active]="section === 'home'" (click)="section = 'home'"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5.5h4V20"/></svg></span> Inizio <b>›</b></button>
+      <button type="button" [class.active]="section === 'appearance'" (click)="section = 'appearance'"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.2 0 1.8-.8 1.8-1.7 0-1.3-1-1.6-1-2.7 0-.9.7-1.6 1.7-1.6H17a3.5 3.5 0 0 0 3.5-3.5C20.5 6.6 16.8 3.5 12 3.5z"/><circle cx="7.6" cy="11.6" r=".9" fill="currentColor" stroke="none"/><circle cx="10" cy="7.8" r=".9" fill="currentColor" stroke="none"/><circle cx="14.6" cy="7.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Aspetto @if (appearanceIssueCount; as count) {<small class="nav-issue" [attr.aria-label]="count + ' errori'">{{count}}</small>} @else {<b>›</b>}</button>
+      <button type="button" [class.active]="section === 'commands'" (click)="section = 'commands'"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M13 3 5.5 13.5H11L10 21l7.5-10.5H12z"/></svg></span> Comandi rapidi @if (issueCount('commands'); as count) {<small class="nav-issue" [attr.aria-label]="count + ' errori'">{{count}}</small>} @else {<b>›</b>}</button>
+      <button type="button" [class.active]="section === 'workspaces'" (click)="section = 'workspaces'"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M12 4.5v15M12 12h8.5"/></svg></span> Workspace @if (issueCount('workspaces'); as count) {<small class="nav-issue" [attr.aria-label]="count + ' errori'">{{count}}</small>} @else {<b>›</b>}</button><button type="button" [class.active]="section === 'history'" (click)="openHistory()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.8 12a8.2 8.2 0 1 0 2.5-5.9L3.8 8.5"/><path d="M3.8 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg></span> Cronologia <b>›</b></button><button type="button" [class.active]="section === 'tools'" (click)="openTools()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span> Strumenti <b>›</b></button><button type="button" [class.active]="section === 'team'" (click)="section = 'team'"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg></span> Pacchetto team <b>›</b></button><button type="button" [class.active]="section === 'prompt'" (click)="openPrompt()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5 7 5 5-5 5"/><path d="M12.5 17.5h7"/></svg></span> Prompt @if (issueCount('prompt'); as count) {<small class="nav-issue" [attr.aria-label]="count + ' errori'">{{count}}</small>} @else {<b>›</b>}</button>
+    </nav>
+    <div class="sidebar-links"><a href="https://github.com/anto88ct/CLI-superpower" aria-label="GitHub" title="GitHub" (click)="$event.preventDefault(); bridge.openLink('github')"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.05.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></a><a href="https://anto88ct.github.io/CLI-superpower" aria-label="Sito web" title="Sito web" (click)="$event.preventDefault(); bridge.openLink('website')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3 3 16 0 19M12 2.5c-3 3-3 16 0 19"/></svg></a><button type="button" class="guide-button" aria-label="Come funziona" title="Come funziona" (click)="openWalkthrough()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.4a2.9 2.9 0 0 1 5.6.9c0 1.9-2.8 2.4-2.8 4.1"/><circle cx="12" cy="17.4" r=".6" fill="currentColor"/></svg></button></div>
+  </aside>
+  <main class="main" [attr.inert]="walkthroughStep !== null ? '' : null">
+    <header class="topbar"><span>Configurazione <span class="separator">/</span> {{ section === 'home' ? 'Inizio' : section === 'appearance' ? 'Aspetto' : section === 'commands' ? 'Comandi rapidi' : section === 'workspaces' ? 'Workspace' : section === 'team' ? 'Pacchetto team' : section === 'tools' ? 'Strumenti' : section === 'history' ? 'Cronologia' : 'Prompt' }}</span><a class="star-link" href="https://github.com/anto88ct/CLI-superpower" target="_blank" rel="noopener noreferrer" (click)="$event.preventDefault(); bridge.openLink('github')"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5L2.6 9.3l6.5-.9z"/></svg>Give us a star<span class="sr-only"> su GitHub</span></a></header>
+    <div class="page">
+      <ng-template #fieldError let-field>
+        @if (fieldIssue(field); as message) { <small class="field-error" [id]="'issue-' + field">{{message}}</small> }
+      </ng-template>
+      @if (error) {
+        <div class="alert error operation-error" role="alert">
+          <strong>{{loadFailed ? 'Configurazione non caricata' : 'Operazione non riuscita'}}</strong><span>{{error}}</span>
+          @if (loadFailed) { <button type="button" class="secondary" [disabled]="busy" (click)="load()">Riprova caricamento</button> }
+          @else if (errorSection; as target) { <button type="button" class="link-button" (click)="goToIssue(target)">Vai alla sezione interessata</button> }
+        </div>
+      }
+      @if (issues.length) {
+        <div class="alert error validation-summary" role="alert">
+          <strong>Controlla i campi segnalati</strong>
+          <ul>@for (issue of issues; track $index) {<li><button type="button" class="link-button" (click)="goToIssue(issue.section, issue.field)">{{issue.label}}</button><span>{{issue.message}}</span></li>}</ul>
+        </div>
+      }
+      <fieldset [disabled]="busy || loadFailed"><legend class="sr-only">Editor configurazione</legend>
+      @if (section === 'home') {
+        <div class="home">
+          <div class="home-intro">
+            <h1 id="editor-heading" tabindex="-1">Quale shell vuoi personalizzare?</h1>
+            <p>Ogni anteprima mostra la shell con le tue impostazioni attuali. Scegline una per cambiarne aspetto e comandi.</p>
+          </div>
+          <div class="shell-grid">
+            @for (item of profiles; track item.id) {
+              <div class="shell-item">
+              <button type="button" class="shell-card" (click)="openProfile(item.id)">
+                <span class="shell-window" aria-hidden="true" [style.background]="themeFor(item.id).background" [style.color]="themeFor(item.id).foreground" [style.font-family]="config.appearance?.[item.id]?.font?.face || null">
+                  @if (imageFor(item.id); as image) {<img [src]="image" alt="" [style.opacity]="config.appearance?.[item.id]?.backgroundImageOpacity ?? 1">}
+                  <span class="shell-lines">
+                    <span class="shell-muted">{{item.id === 'cmd' ? 'Microsoft Windows' : item.id === 'pwsh' ? 'PowerShell 7' : 'Windows PowerShell'}}</span>
+                    <span><span [style.color]="themeFor(item.id).accent">{{item.id === 'cmd' ? 'C:\\Progetti>' : 'PS C:\Progetti>'}}</span> {{shellCommands(item.id)[0] ? quickCommandPrefix + shellCommands(item.id)[0].name : ''}}<span class="shell-caret"></span></span>
+                  </span>
+                </span>
+                <span class="shell-name">{{item.label}}</span>
+                <span class="shell-facts">
+                  @if (detectedProfiles) {<span [class.shell-missing]="!detectedProfiles.includes(item.id)">{{detectedProfiles.includes(item.id) ? 'Pronto in Windows Terminal' : 'Non rilevato in Windows Terminal'}}</span>}
+                  <span>{{commandCountLabel(item.id)}}</span>
+                </span>
+              </button>
+              @if (bridge.desktop && hasCustomConfig(item.id)) {<button type="button" class="text-danger shell-remove" [disabled]="busy || loadFailed" [attr.aria-label]="'Rimuovi integrazione (' + item.label + ')'" (click)="removeIntegration()">Rimuovi integrazione</button>}
+              </div>
+            }
+          </div>
+        </div>
+      }
+      @if (section === 'appearance') {
+        <div class="heading appearance-heading">
+          <div><h1 id="editor-heading" tabindex="-1">Aspetto del terminale</h1>
+            <p>Scegli un profilo e guarda le modifiche in tempo reale.</p></div>
+        </div>
+        <div class="profile-tabs" aria-label="Profilo terminale">@for (item of profiles; track item.id) { <button type="button" [class.selected]="profile === item.id" [attr.aria-pressed]="profile === item.id" (click)="selectProfile(item.id)"><span class="profile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" focusable="false">@if (item.id === 'cmd') {<rect x="1" y="3" width="22" height="18" rx="2.5" fill="#0c0c0c"/><rect x="1" y="3" width="22" height="4" rx="2" fill="#3a3a3a"/><path fill="#3a3a3a" d="M1 5h22v2H1z"/><text x="12" y="17.2" text-anchor="middle" font-family="Consolas,monospace" font-size="8" font-weight="700" fill="#fff">C:\_</text>} @else {<path [attr.fill]="item.id === 'pwsh' ? '#5391FE' : '#2671BE'" d="M23.181 2.974c.568 0 .923.463.792 1.035l-3.659 15.982c-.13.572-.697 1.035-1.265 1.035H.819c-.568 0-.923-.463-.792-1.035L3.686 4.009c.13-.572.697-1.035 1.265-1.035zm-8.375 9.346c.251-.394.227-.905-.09-1.243L9.122 5.125c-.38-.404-1.037-.407-1.466-.003-.429.402-.468 1.056-.088 1.46l4.662 4.96v.11l-7.42 5.374c-.45.327-.533.977-.187 1.453.346.476.991.597 1.44.27l8.229-5.91c.28-.196.438-.365.514-.52zm-2.796 4.399a.928.928 0 00-.934.923c0 .51.418.923.934.923h4.433a.928.928 0 00.934-.923.928.928 0 00-.934-.923z" fill-rule="evenodd"/>}</svg></span>{{item.label}} @if(detectedProfiles && !detectedProfiles.includes(item.id)) {<small class="profile-missing">Non rilevato</small>}</button> }</div>
+        <div class="appearance-layout">
+          <section class="editor appearance-editor" aria-label="Stile del profilo">
+            <section class="appearance-section" aria-labelledby="theme-title">
+              <header class="sec-head"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.2 0 1.8-.8 1.8-1.7 0-1.3-1-1.6-1-2.7 0-.9.7-1.6 1.7-1.6H17a3.5 3.5 0 0 0 3.5-3.5C20.5 6.6 16.8 3.5 12 3.5z"/><circle cx="7.6" cy="11.6" r=".9" fill="currentColor" stroke="none"/><circle cx="10" cy="7.8" r=".9" fill="currentColor" stroke="none"/><circle cx="14.6" cy="7.8" r=".9" fill="currentColor" stroke="none"/></svg></span><div><h2 id="theme-title">Tema</h2><p>Scegli una palette per testo e sfondo.</p></div></header>
+              <div class="theme-grid" aria-label="Temi predefiniti"><button type="button" class="theme-choice inherit-choice" [class.chosen]="!appearance.colorScheme" [attr.aria-pressed]="!appearance.colorScheme" (click)="setAppearance('colorScheme', '')"><span class="theme-swatch inherit-swatch">↶</span><span>Predefinito</span></button>@for(theme of appearanceThemes; track theme.name) {<button type="button" class="theme-choice" [class.chosen]="appearance.colorScheme === theme.name" (click)="setAppearance('colorScheme', theme.name)" [attr.aria-pressed]="appearance.colorScheme === theme.name"><span class="theme-swatch" [style.background]="theme.background"><i [style.background]="theme.foreground"></i><i [style.background]="theme.accent"></i><i [style.background]="theme.green"></i></span><span>{{theme.name}}</span></button>}</div>
+              <details class="appearance-disclosure" [open]="!!appearance.colorScheme && selectedTheme.name !== appearance.colorScheme">
+                <summary>Usa uno schema di Windows Terminal</summary>
+                <label>Nome dello schema<input [ngModel]="appearance.colorScheme ?? ''" (ngModelChange)="setAppearance('colorScheme', $event)" placeholder="Nome esatto dello schema"></label>
+              </details>
+            </section>
+            <section class="appearance-section" aria-labelledby="text-title">
+              <header class="sec-head"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 19 8.5 6l5 13M5.4 14.5h6.2"/><path d="M15.5 19h5M18 11.5V19"/></svg></span><div><h2 id="text-title">Testo</h2><p>Font e dimensione dei caratteri.</p></div></header>
+              <div class="form-grid text-controls"><label>Font<select [ngModel]="fontSelection" (ngModelChange)="selectFont($event)"><option value="">Predefinito del terminale</option>@for(font of terminalFonts; track font) {<option [value]="font">{{font}}</option>}<option value="__custom__">Altro font…</option></select></label>@if(fontSelection === '__custom__') {<label class="wide">Nome del font personalizzato<input [ngModel]="appearance.font?.face ?? ''" (ngModelChange)="setFont('face', $event)" placeholder="Nome esatto del font installato"></label>}
+          <label>Dimensione font <span>pt</span><input type="number" min="1" [ngModel]="appearance.font?.size ?? null" (ngModelChange)="setFont('size', $event)" placeholder="Predefinita"></label></div>
+            </section>
+            <section class="appearance-section" aria-labelledby="background-title">
+              <header class="sec-head"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5.2-5 3.8 3.5 2.6-2.5 4.9 4"/></svg></span><div><h2 id="background-title">Sfondo</h2><p>Un’immagine dietro al testo del terminale.</p></div></header>
+              <div class="appearance-upload">
+                @if (backgroundPreviewUrl; as image) {<img [src]="image" alt="">}
+                <div><strong>{{appearance.backgroundImage ? 'Immagine selezionata' : 'Aggiungi un’immagine'}}</strong>
+                  <small>{{uploadingBackground ? 'Caricamento in corso…' : 'PNG, JPEG, WebP, GIF o BMP. Fino a 8 MB.'}}</small></div>
+                <label class="secondary appearance-file-button">
+                  {{appearance.backgroundImage ? 'Sostituisci' : 'Scegli file'}}
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" [disabled]="uploadingBackground" (change)="chooseBackground($event)">
+                </label>
+                @if (appearance.backgroundImage) {
+                  <button class="text-danger" type="button" (click)="setAppearance('backgroundImage', '')">Rimuovi</button>
+                }
+              </div>
+              @if (appearance.backgroundImage) {
+                <div class="form-grid image-controls">
+                  <div class="appearance-slider">
+                    <label for="image-opacity">Opacità immagine</label>
+                    <output for="image-opacity">{{imageOpacityPercent}}%</output>
+                    <input id="image-opacity" type="range" min="0" max="100" [ngModel]="imageOpacityPercent" (ngModelChange)="setAppearance('backgroundImageOpacity', $event / 100)">
+                    @if (appearance.backgroundImageOpacity !== undefined) {
+                      <button type="button" class="link-button" (click)="setAppearance('backgroundImageOpacity', '')">Ripristina</button>
+                    }
+                  </div>
+                  <label>Allineamento immagine<select [ngModel]="appearance.backgroundImageAlignment ?? ''" (ngModelChange)="setAppearance('backgroundImageAlignment', $event)"><option value="">Predefinito</option><option value="center">Centro</option><option value="left">Sinistra</option><option value="right">Destra</option><option value="top">Alto</option><option value="bottom">Basso</option><option value="topLeft">Alto a sinistra</option><option value="topRight">Alto a destra</option><option value="bottomLeft">Basso a sinistra</option><option value="bottomRight">Basso a destra</option></select></label>
+                </div>
+              }
+              <details class="appearance-disclosure">
+                <summary>Usa un percorso immagine</summary>
+                <label>Percorso assoluto<input [ngModel]="appearance.backgroundImage ?? ''" (ngModelChange)="setAppearance('backgroundImage', $event)"></label>
+              </details>
+            </section>
+            <details class="appearance-section appearance-advanced">
+              <summary><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9h17"/><path d="M8 13.5v3"/></svg></span><span class="sec-title"><strong>Finestra e cursore</strong><small>Trasparenza, margini e forma del cursore.</small></span></summary>
+              <div class="form-grid">
+                <div class="appearance-slider wide">
+                  <label for="window-opacity">Opacità finestra</label>
+                  <output for="window-opacity">{{appearance.opacity ?? 100}}%</output>
+                  <input id="window-opacity" type="range" min="0" max="100" [ngModel]="appearance.opacity ?? 100" (ngModelChange)="setAppearance('opacity', +$event)">
+                  @if (appearance.opacity !== undefined) {
+                    <button type="button" class="link-button" (click)="setAppearance('opacity', '')">Ripristina</button>
+                  }
+                </div>
+                <label>Forma cursore<select [ngModel]="appearance.cursorShape ?? ''" (ngModelChange)="setAppearance('cursorShape', $event)"><option value="">Predefinita</option><option value="bar">Barra</option><option value="vintage">Vintage</option><option value="underscore">Sottolineato</option><option value="filledBox">Blocco pieno</option><option value="emptyBox">Blocco vuoto</option><option value="doubleUnderscore">Doppia sottolineatura</option></select></label>
+          <label>Margine sinistro <span>px</span><input type="number" min="0" [ngModel]="appearance.padding?.left ?? null" (ngModelChange)="setPadding('left', $event)"></label><label>Margine superiore <span>px</span><input type="number" min="0" [ngModel]="appearance.padding?.top ?? null" (ngModelChange)="setPadding('top', $event)"></label><label>Margine destro <span>px</span><input type="number" min="0" [ngModel]="appearance.padding?.right ?? null" (ngModelChange)="setPadding('right', $event)"></label><label>Margine inferiore <span>px</span><input type="number" min="0" [ngModel]="appearance.padding?.bottom ?? null" (ngModelChange)="setPadding('bottom', $event)"></label><label>Effetto acrilico<select [ngModel]="appearance.useAcrylic === undefined ? '' : appearance.useAcrylic ? 'yes' : 'no'" (ngModelChange)="setAppearance('useAcrylic', $event === '' ? '' : $event === 'yes')"><option value="">Predefinito</option><option value="yes">Attivo</option><option value="no">Disattivo</option></select></label></div>
+            </details>
+            <section class="appearance-section" aria-labelledby="behavior-title">
+              <div class="behavior-head">
+                <header class="sec-head"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5H5.5v14H7M17 5h1.5v14H17"/><path d="M10 12h4"/></svg></span><div><h2 id="behavior-title">Autocomplete</h2><p>Suggerimenti mentre scrivi, basati sui comandi che hai già usato.</p></div></header>
+                <label class="check-label"><input type="checkbox" [ngModel]="!!behavior(profile)" (ngModelChange)="setBehaviorEnabled(profile, $event)"> Attivo in {{profileLabel(profile)}}</label>
+              </div>
+              @if (behavior(profile); as b) {
+                <div class="form-grid text-controls">
+                  <label>Accetta il suggerimento con<select [ngModel]="b.acceptKey ?? 'right'" (ngModelChange)="setBehavior(profile, 'acceptKey', $event)"><option value="tab">Tab</option><option value="right">Freccia destra</option></select></label>
+                  <label>Suggerimenti<select [ngModel]="b.predictions ?? 'history'" (ngModelChange)="setBehavior(profile, 'predictions', $event)"><option value="history">Dalla cronologia</option><option value="off">Disattivati</option></select></label>
+                  <label>Aspetto<select [ngModel]="b.predictionView ?? 'inline'" (ngModelChange)="setBehavior(profile, 'predictionView', $event)"><option value="inline">In linea, in grigio</option><option value="list">Elenco sotto la riga</option></select></label>
+                  <label class="check-label wide"><input type="checkbox" [ngModel]="b.hideSensitive !== false" (ngModelChange)="setBehavior(profile, 'hideSensitive', $event)"> Non salvare nella cronologia i comandi con password, token o chiavi</label>
+                </div>
+                <details class="appearance-disclosure" [open]="!!fieldIssue('behavior-' + profile + '-exclude')">
+                  <summary>Altri frammenti da escludere dalla cronologia</summary>
+                  <label>Uno per riga, senza distinguere maiuscole
+                    <textarea [id]="'behavior-' + profile + '-exclude'" rows="3" [attr.aria-invalid]="fieldIssue('behavior-' + profile + '-exclude') ? true : null" [ngModel]="excludeText(profile)" (ngModelChange)="setExcludeText(profile, $event)" placeholder="nome-del-mio-segreto"></textarea>
+                    <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'behavior-' + profile + '-exclude' }"></ng-container>
+                  </label>
+                </details>
+                @if (behaviorNote(profile)) {<p class="preview-note">{{behaviorNote(profile)}}</p>}
+              } @else {
+                <p class="preview-note">Non gestito: {{profileLabel(profile)}} mantiene le sue impostazioni. Attivalo per configurare suggerimenti e cronologia.</p>
+              }
+            </section>
+            <section class="appearance-section" aria-labelledby="banner-title">
+              <div class="behavior-head">
+                <header class="sec-head"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 21V4"/><path d="M5.5 5h12l-2.6 4 2.6 4h-12"/></svg></span><div><h2 id="banner-title">Banner di avvio</h2><p>Mostra il logo CLI Superpower quando apri PowerShell o il Prompt dei comandi. Vale per tutte le shell; nel Prompt dei comandi compare se Clink è già attivo.</p></div></header>
+                <label class="check-label"><input type="checkbox" [ngModel]="bannerEnabled" (ngModelChange)="setBannerEnabled($event)"> Mostra il banner</label>
+              </div>
+            </section>
+            <div class="copy-row"><span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.2"/><path d="M15.5 8.5V6.2a2.2 2.2 0 0 0-2.2-2.2H6.2A2.2 2.2 0 0 0 4 6.2v7.1a2.2 2.2 0 0 0 2.2 2.2h2.3"/></svg></span><div><strong>Copia aspetto</strong><small>Usa queste impostazioni su un altro profilo.</small></div><select aria-label="Profilo destinazione" [(ngModel)]="copyTarget">@for (item of profiles; track item.id) { @if(item.id !== profile) {<option [value]="item.id">{{item.label}}</option>} }</select><button type="button" class="secondary" (click)="copyAppearance()" [disabled]="copyTarget === profile">Copia</button></div>
+          </section>
+          <aside class="preview-side appearance-preview" aria-label="Anteprima del terminale">
+            <div class="preview-header">
+              <div><h2>Anteprima</h2><p>{{appearance.colorScheme || 'Tema predefinito'}}</p></div>
+              <span class="appearance-live">In tempo reale</span>
+            </div>
+            <div class="terminal"><div class="terminal-bar"><span>● ● ●</span><span>{{profile === 'pwsh' ? 'PowerShell 7' : profile === 'powershell' ? 'Windows PowerShell' : 'Prompt dei comandi'}}</span><span>＋</span></div><div class="terminal-stage"><div class="terminal-background" [style.background]="terminalBackground" [style.opacity]="(appearance.opacity ?? 100) / 100" [class.acrylic-preview]="appearance.useAcrylic"></div>@if(backgroundPreviewUrl; as image) {<img class="terminal-image" [src]="image" alt="" [style.object-position]="backgroundPosition" [style.opacity]="appearance.backgroundImageOpacity ?? 1">}<div class="terminal-body" [style.font-family]="appearance.font?.face || 'Cascadia Mono, Consolas, monospace'" [style.font-size.pt]="appearance.font?.size || 10" [style.color]="terminalText" [style.padding-left.px]="appearance.padding?.left ?? 18" [style.padding-right.px]="appearance.padding?.right ?? 18" [style.padding-top.px]="appearance.padding?.top ?? 20" [style.padding-bottom.px]="appearance.padding?.bottom ?? 20"><div>{{profile === 'cmd' ? 'Microsoft Windows' : 'Windows PowerShell'}}</div><div class="preview-muted">Copyright (C) Microsoft Corporation.</div><br><div><span [style.color]="selectedTheme.accent">{{profile === 'cmd' ? 'C:\Progetti>' : 'PS C:\Progetti>'}}</span> git status</div><div class="preview-muted">On branch main</div><div [style.color]="selectedTheme.green">Your working tree is clean</div><br><div><span [style.color]="selectedTheme.accent">{{profile === 'cmd' ? 'C:\Progetti>' : 'PS C:\Progetti>'}}</span> <span class="preview-cursor" [attr.data-shape]="appearance.cursorShape ?? 'bar'" [style.color]="terminalText">&nbsp;</span></div></div></div></div>
+            <p class="preview-note">Simulazione. Font, trasparenza e schemi personalizzati possono apparire diversi in Windows Terminal.</p>
+          </aside>
+        </div>
+      }
+      @if (section === 'commands') {
+        <div class="heading"><div><h1 id="editor-heading" tabindex="-1">Comandi rapidi</h1><p>Salva comandi frequenti e definisci gli argomenti da richiedere.</p></div><button type="button" class="primary" (click)="addCommand()">＋ Nuovo comando</button></div>
+        <details class="compact-field">
+          <summary>Prefisso dei comandi</summary>
+          <label>Prefisso<select [ngModel]="quickCommandPrefix" (ngModelChange)="config.commandPrefix = $event; changed()">
+            <option value="/">/</option><option value="">Nessuno</option><option value="x-">x-</option>
+          </select></label>
+        </details>
+        @if (!commands.length) {<div class="empty"><div class="empty-icon">⌘</div><h2>Nessun comando rapido</h2><p>Aggiungi un comando per richiamare più facilmente le operazioni che usi spesso.</p><button type="button" class="secondary" (click)="addCommand()">Aggiungi comando</button></div>}
+        @if (commands.length) {
+          <p class="preview-note table-note">Il comando parte dalla cartella corrente. Usa le virgolette per percorsi o argomenti con spazi. Per spostare la shell in una cartella scrivi <code>cd</code> seguito dal percorso.</p>
+          <div class="command-table-wrap">
+            <table class="command-table">
+              <thead>
+                <tr><th scope="col">Scorciatoia</th><th scope="col">Comando da eseguire</th><th scope="col">Disponibile in</th><th scope="col"><span class="sr-only">Azioni</span></th></tr>
+              </thead>
+              @for (command of commands; track command.id; let i = $index) {
+                <tbody>
+                  <tr class="command-row">
+                    <td>
+                      <input [id]="'command-' + i + '-name'" aria-label="Scorciatoia" [attr.aria-invalid]="fieldIssue('command-' + i + '-name') ? true : null" required
+                        [ngModel]="command.name" (ngModelChange)="setCommandName(command, $event)" placeholder="rundev">
+                      <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-name' }"></ng-container>
+                    </td>
+                    <td>
+                      <input [id]="'command-' + i + '-program'" aria-label="Comando da eseguire" required
+                        [attr.aria-invalid]="fieldIssue('command-' + i + '-program') || fieldIssue('command-' + i + '-args') ? true : null"
+                        [ngModel]="commandLine(command)" (ngModelChange)="setCommandLine(command, $event)" placeholder="npm run dev">
+                      <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-program' }"></ng-container>
+                      <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-args' }"></ng-container>
+                    </td>
+                    <td>
+                      <div class="shell-checks" role="group" [id]="'command-' + i + '-shells'" tabindex="-1" aria-label="Shell di destinazione" [attr.aria-describedby]="fieldIssue('command-' + i + '-shells') ? 'issue-command-' + i + '-shells' : null">
+                        <label title="PowerShell 7"><input type="checkbox" [ngModel]="command.shells.includes('pwsh')" (ngModelChange)="setShell(command, 'pwsh', $event)"> PS 7</label>
+                        <label title="Windows PowerShell"><input type="checkbox" [ngModel]="command.shells.includes('powershell')" (ngModelChange)="setShell(command, 'powershell', $event)"> PS</label>
+                        <label title="Prompt dei comandi (Clink)"><input type="checkbox" [ngModel]="command.shells.includes('cmd')" (ngModelChange)="setShell(command, 'cmd', $event)"> CMD</label>
+                      </div>
+                      <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-shells' }"></ng-container>
+                    </td>
+                    <td class="row-actions"><button type="button" class="text-danger" [attr.aria-label]="'Rimuovi ' + (command.name ? quickCommandPrefix + command.name : 'comando')" (click)="removeCommand(i)">Rimuovi</button></td>
+                  </tr>
+                  <tr class="command-extra">
+                    <td colspan="4">
+                      @if (command.shells.includes('cmd')) {<p class="preview-note">In CMD la scorciatoia usa Clink, incluso nell’app. Usa argomenti fissi per questa shell.</p>}
+                      <details class="appearance-disclosure">
+                        <summary>Opzioni avanzate e parametri</summary>
+                        <div class="form-grid text-controls"><label class="wide">Descrizione<input [ngModel]="command.description ?? ''" (ngModelChange)="setOptional(command, 'description', $event)" placeholder="Cosa fa questo comando?"></label><label>Cartella di lavoro <span>opzionale</span><input [id]="'command-' + i + '-directory'" [attr.aria-invalid]="fieldIssue('command-' + i + '-directory') ? true : null" [attr.aria-describedby]="fieldIssue('command-' + i + '-directory') ? 'issue-' + ('command-' + i + '-directory') : null" [ngModel]="command.workingDirectory ?? ''" (ngModelChange)="setOptional(command, 'workingDirectory', $event)" placeholder="C:\Progetti"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-directory' }"></ng-container></label></div>
+<div class="subheading"><h3>Parametri</h3><button type="button" class="link-button" (click)="addParameter(command)">＋ Aggiungi parametro</button></div>@for (param of command.parameters ?? []; track $index; let j = $index) {<div class="parameter-row"><label>Nome <span class="required-label">Obbligatorio</span><input [id]="'command-' + i + '-parameter-' + j + '-name'" [attr.aria-invalid]="fieldIssue('command-' + i + '-parameter-' + j + '-name') ? true : null" [attr.aria-describedby]="fieldIssue('command-' + i + '-parameter-' + j + '-name') ? 'issue-' + ('command-' + i + '-parameter-' + j + '-name') : null" required [(ngModel)]="param.name" (ngModelChange)="changed()" placeholder="nome"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-parameter-' + j + '-name' }"></ng-container></label><label>Tipo<select [(ngModel)]="param.type" (ngModelChange)="param.default = undefined; changed()"><option value="string">Testo</option><option value="integer">Intero</option></select></label><label class="check-label"><input [id]="'command-' + i + '-parameter-' + j + '-required'" [attr.aria-invalid]="fieldIssue('command-' + i + '-parameter-' + j + '-required') ? true : null" [attr.aria-describedby]="fieldIssue('command-' + i + '-parameter-' + j + '-required') ? 'issue-' + ('command-' + i + '-parameter-' + j + '-required') : null" type="checkbox" [(ngModel)]="param.required" (ngModelChange)="param.default = undefined; changed()"> Obbligatorio<ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-parameter-' + j + '-required' }"></ng-container></label><label>Descrizione<input [ngModel]="param.description ?? ''" (ngModelChange)="setOptional(param, 'description', $event)"></label><label>Valore predefinito<input [id]="'command-' + i + '-parameter-' + j + '-default'" [attr.aria-invalid]="fieldIssue('command-' + i + '-parameter-' + j + '-default') ? true : null" [attr.aria-describedby]="fieldIssue('command-' + i + '-parameter-' + j + '-default') ? 'issue-' + ('command-' + i + '-parameter-' + j + '-default') : null" [disabled]="param.required" [type]="param.type === 'integer' ? 'number' : 'text'" [ngModel]="param.default ?? ''" (ngModelChange)="setDefault(param, $event)"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'command-' + i + '-parameter-' + j + '-default' }"></ng-container></label><button type="button" class="text-danger" (click)="removeParameter(command,j)">Rimuovi</button></div>}
+                      </details>
+                    </td>
+                  </tr>
+                </tbody>
+              }
+            </table>
+          </div>
+        }
+        <fieldset class="framework-picker">
+          <legend>Parti da un framework</legend>
+          <p>Scegli un framework per creare un comando che avvia il progetto. Ti chiediamo che nome dargli.</p>
+          <div class="framework-grid">
+            @for (fw of frameworks; track fw.id) {
+              <button type="button" class="framework-tile" (click)="openFramework(fw)">
+                <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" focusable="false">@switch (fw.id) {
+@case ('angular') {<path fill="#DD0031" d="M16.712 17.711H7.288l-1.204 2.916L12 24l5.916-3.373-1.204-2.916ZM14.692 0l7.832 16.855.814-12.856L14.692 0ZM9.308 0 .662 3.999l.814 12.856L9.308 0Zm-.405 13.93h6.198L12 6.396 8.903 13.93Z"/>}
+@case ('react') {<path fill="#61DAFB" d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/>}
+@case ('vue') {<path fill="#4FC08D" d="M24,1.61H14.06L12,5.16,9.94,1.61H0L12,22.39ZM12,14.08,5.16,2.23H9.59L12,6.41l2.41-4.18h4.43Z"/>}
+@case ('svelte') {<path fill="#FF3E00" d="M10.354 21.125a4.44 4.44 0 0 1-4.765-1.767 4.109 4.109 0 0 1-.703-3.107 3.898 3.898 0 0 1 .134-.522l.105-.321.287.21a7.21 7.21 0 0 0 2.186 1.092l.208.063-.02.208a1.253 1.253 0 0 0 .226.83 1.337 1.337 0 0 0 1.435.533 1.231 1.231 0 0 0 .343-.15l5.59-3.562a1.164 1.164 0 0 0 .524-.778 1.242 1.242 0 0 0-.211-.937 1.338 1.338 0 0 0-1.435-.533 1.23 1.23 0 0 0-.343.15l-2.133 1.36a4.078 4.078 0 0 1-1.135.499 4.44 4.44 0 0 1-4.765-1.766 4.108 4.108 0 0 1-.702-3.108 3.855 3.855 0 0 1 1.742-2.582l5.589-3.563a4.072 4.072 0 0 1 1.135-.499 4.44 4.44 0 0 1 4.765 1.767 4.109 4.109 0 0 1 .703 3.107 3.943 3.943 0 0 1-.134.522l-.105.321-.286-.21a7.204 7.204 0 0 0-2.187-1.093l-.208-.063.02-.207a1.255 1.255 0 0 0-.226-.831 1.337 1.337 0 0 0-1.435-.532 1.231 1.231 0 0 0-.343.15L8.62 9.368a1.162 1.162 0 0 0-.524.778 1.24 1.24 0 0 0 .211.937 1.338 1.338 0 0 0 1.435.533 1.235 1.235 0 0 0 .344-.151l2.132-1.36a4.067 4.067 0 0 1 1.135-.498 4.44 4.44 0 0 1 4.765 1.766 4.108 4.108 0 0 1 .702 3.108 3.857 3.857 0 0 1-1.742 2.583l-5.589 3.562a4.072 4.072 0 0 1-1.135.499m10.358-17.95C18.484-.015 14.082-.96 10.9 1.068L5.31 4.63a6.412 6.412 0 0 0-2.896 4.295 6.753 6.753 0 0 0 .666 4.336 6.43 6.43 0 0 0-.96 2.396 6.833 6.833 0 0 0 1.168 5.167c2.229 3.19 6.63 4.135 9.812 2.108l5.59-3.562a6.41 6.41 0 0 0 2.896-4.295 6.756 6.756 0 0 0-.665-4.336 6.429 6.429 0 0 0 .958-2.396 6.831 6.831 0 0 0-1.167-5.168Z"/>}
+@case ('astro') {<path fill="#BC52EE" d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.856 1.026 2.043 1.352 3.272 1.535 1.897.283 3.76.177 5.522-.678.202-.098.388-.229.608-.36.166.473.209.95.151 1.437-.14 1.185-.738 2.1-1.688 2.794-.38.277-.782.525-1.175.787-1.205.804-1.531 1.747-1.078 3.119l.044.148a3.158 3.158 0 0 1-1.407-1.188 3.31 3.31 0 0 1-.544-1.815c-.004-.32-.004-.642-.048-.958-.106-.769-.472-1.113-1.161-1.133-.707-.02-1.267.411-1.415 1.09-.012.053-.028.104-.045.165h.002zm-5.961-4.445s3.24-1.575 6.49-1.575l2.451-7.565c.092-.366.36-.614.662-.614.302 0 .57.248.662.614l2.45 7.565c3.85 0 6.491 1.575 6.491 1.575L16.088.727C15.93.285 15.663 0 15.303 0H8.697c-.36 0-.615.285-.784.727l-5.516 14.99z"/>}
+@case ('next') {<path fill="#000000" d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/>}
+@case ('nuxt') {<path fill="#00DC82" d="M13.4642 19.8295h8.9218c.2834 0 .5618-.0723.8072-.2098a1.5899 1.5899 0 0 0 .5908-.5732 1.5293 1.5293 0 0 0 .216-.783 1.529 1.529 0 0 0-.2167-.7828L17.7916 7.4142a1.5904 1.5904 0 0 0-.5907-.573 1.6524 1.6524 0 0 0-.807-.2099c-.2833 0-.5616.0724-.807.2098a1.5904 1.5904 0 0 0-.5907.5731L13.4642 9.99l-2.9954-5.0366a1.5913 1.5913 0 0 0-.591-.573 1.6533 1.6533 0 0 0-.8071-.2098c-.2834 0-.5617.0723-.8072.2097a1.5913 1.5913 0 0 0-.591.573L.2168 17.4808A1.5292 1.5292 0 0 0 0 18.2635c-.0001.2749.0744.545.216.783a1.59 1.59 0 0 0 .5908.5732c.2454.1375.5238.2098.8072.2098h5.6003c2.219 0 3.8554-.9454 4.9813-2.7899l2.7337-4.5922L16.3935 9.99l4.3944 7.382h-5.8586ZM7.123 17.3694l-3.9083-.0009 5.8586-9.8421 2.9232 4.921-1.9572 3.2892c-.7478 1.1967-1.5972 1.6328-2.9163 1.6328z"/>}
+@case ('vite') {<path fill="#646CFF" d="m8.286 10.578.512-8.657a.306.306 0 0 1 .247-.282L17.377.006a.306.306 0 0 1 .353.385l-1.558 5.403a.306.306 0 0 0 .352.385l2.388-.46a.306.306 0 0 1 .332.438l-6.79 13.55-.123.19a.294.294 0 0 1-.252.14c-.177 0-.35-.152-.305-.369l1.095-5.301a.306.306 0 0 0-.388-.355l-1.433.435a.306.306 0 0 1-.389-.354l.69-3.375a.306.306 0 0 0-.37-.36l-2.32.536a.306.306 0 0 1-.374-.316zm14.976-7.926L17.284 3.74l-.544 1.887 2.077-.4a.8.8 0 0 1 .84.369.8.8 0 0 1 .034.783L12.9 19.93l-.013.025-.015.023-.122.19a.801.801 0 0 1-.672.37.826.826 0 0 1-.634-.302.8.8 0 0 1-.16-.67l1.029-4.981-1.12.34a.81.81 0 0 1-.86-.262.802.802 0 0 1-.165-.67l.63-3.08-2.027.468a.808.808 0 0 1-.768-.233.81.81 0 0 1-.217-.6l.389-6.57-7.44-1.33a.612.612 0 0 0-.64.906L11.58 23.691a.612.612 0 0 0 1.066-.004l11.26-20.135a.612.612 0 0 0-.644-.9z"/>}
+                }</svg>
+                <span class="fw-name">{{fw.label}}</span>
+                <span class="fw-cmd">{{frameworkLine(fw)}}</span>
+              </button>
+            }
+          </div>
+        </fieldset>
+      }
+      @if (section === 'workspaces') {
+        <div class="heading"><div><h1 id="editor-heading" tabindex="-1">Workspace</h1><p>Prepara schede e pannelli per aprire ogni progetto come preferisci.</p></div><button type="button" class="primary" (click)="addWorkspace()">＋ Nuovo workspace</button></div>
+        @if (!workspaces.length) {<div class="empty"><div class="empty-icon">▦</div><h2>Nessun workspace</h2><p>Crea un workspace per organizzare le schede e i pannelli di un progetto.</p><button type="button" class="secondary" (click)="addWorkspace()">Crea workspace</button></div>}
+        @for (workspace of workspaces; track $index; let i = $index) {<section class="item"><div class="item-header"><div><span class="item-index">WORKSPACE {{i + 1}}</span><h2>{{workspace.name || 'Nuovo workspace'}}</h2></div><div><button type="button" class="secondary" (click)="launch(workspace.id)" [disabled]="!canLaunch || !workspace.id" title="Salva prima le modifiche">Avvia</button> <button type="button" class="text-danger" (click)="removeWorkspace(i)">Rimuovi</button></div></div><div class="form-grid"><label>ID stabile <span class="required-label">Obbligatorio</span><input [id]="'workspace-' + i + '-id'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-id') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-id') ? 'issue-' + ('workspace-' + i + '-id') : null" required [(ngModel)]="workspace.id" (ngModelChange)="changed()" placeholder="es. progetto-web"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-id' }"></ng-container></label><label>Nome <span class="required-label">Obbligatorio</span><input [id]="'workspace-' + i + '-name'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-name') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-name') ? 'issue-' + ('workspace-' + i + '-name') : null" required [(ngModel)]="workspace.name" (ngModelChange)="changed()" placeholder="es. Progetto web"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-name' }"></ng-container></label></div>
+          @for (tab of workspace.tabs; track $index; let t = $index) {<div class="tab-editor"><div class="subheading"><h3>Scheda {{t + 1}}</h3><button type="button" class="text-danger" (click)="workspace.tabs.splice(t,1); changed()" [disabled]="workspace.tabs.length === 1">Rimuovi scheda</button></div><div class="form-grid"><label>Titolo <span>opzionale</span><input [ngModel]="tab.title ?? ''" (ngModelChange)="setOptional(tab, 'title', $event)"></label><label>Profilo<select [(ngModel)]="tab.pane.profile" (ngModelChange)="changed()">@for (item of profiles; track item.id) {<option [value]="item.id">{{item.label}}</option>}</select></label><label>Cartella di lavoro<input [id]="'workspace-' + i + '-tab-' + t + '-directory'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-tab-' + t + '-directory') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-tab-' + t + '-directory') ? 'issue-' + ('workspace-' + i + '-tab-' + t + '-directory') : null" [ngModel]="tab.pane.workingDirectory ?? ''" (ngModelChange)="setOptional(tab.pane, 'workingDirectory', $event)" placeholder="C:\Progetti"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-tab-' + t + '-directory' }"></ng-container></label><label>Comando iniziale<input [id]="'workspace-' + i + '-tab-' + t + '-startup'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-tab-' + t + '-startup') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-tab-' + t + '-startup') ? 'issue-' + ('workspace-' + i + '-tab-' + t + '-startup') : null" [ngModel]="tab.pane.startupCommand ?? ''" (ngModelChange)="setOptional(tab.pane, 'startupCommand', $event)" placeholder="es. ng serve"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-tab-' + t + '-startup' }"></ng-container></label></div>
+            @for (split of tab.splits ?? []; track $index; let s = $index) {<div class="split-editor"><div class="subheading"><h3>Pannello {{s + 2}}</h3><button type="button" class="text-danger" (click)="tab.splits?.splice(s,1); changed()">Rimuovi pannello</button></div><div class="form-grid"><label>Dividi verso<select [(ngModel)]="split.direction" (ngModelChange)="changed()"><option value="right">Destra</option><option value="down">Basso</option></select></label><label>Profilo<select [(ngModel)]="split.pane.profile" (ngModelChange)="changed()">@for (item of profiles; track item.id) {<option [value]="item.id">{{item.label}}</option>}</select></label><label>Cartella di lavoro<input [id]="'workspace-' + i + '-tab-' + t + '-split-' + s + '-directory'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-tab-' + t + '-split-' + s + '-directory') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-tab-' + t + '-split-' + s + '-directory') ? 'issue-' + ('workspace-' + i + '-tab-' + t + '-split-' + s + '-directory') : null" [ngModel]="split.pane.workingDirectory ?? ''" (ngModelChange)="setOptional(split.pane, 'workingDirectory', $event)" placeholder="C:\Progetti"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-tab-' + t + '-split-' + s + '-directory' }"></ng-container></label><label>Comando iniziale<input [id]="'workspace-' + i + '-tab-' + t + '-split-' + s + '-startup'" [attr.aria-invalid]="fieldIssue('workspace-' + i + '-tab-' + t + '-split-' + s + '-startup') ? true : null" [attr.aria-describedby]="fieldIssue('workspace-' + i + '-tab-' + t + '-split-' + s + '-startup') ? 'issue-' + ('workspace-' + i + '-tab-' + t + '-split-' + s + '-startup') : null" [ngModel]="split.pane.startupCommand ?? ''" (ngModelChange)="setOptional(split.pane, 'startupCommand', $event)"><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'workspace-' + i + '-tab-' + t + '-split-' + s + '-startup' }"></ng-container></label></div></div>}
+            <button type="button" class="link-button" (click)="addSplit(tab)">＋ Aggiungi pannello</button></div>}
+          <button type="button" class="secondary" (click)="addTab(workspace)">＋ Aggiungi scheda</button></section>}
+      }
+      @if (section === 'prompt') {
+        <div class="heading"><div><h1 id="editor-heading" tabindex="-1">Prompt</h1><p>Scegli quali informazioni mostrare e il loro ordine, in PowerShell e nel Prompt dei comandi.</p></div></div>
+        @if (promptToolMissing) {<div class="alert prompt-missing" role="status"><strong>oh-my-posh non è installato.</strong> Il prompt è attivo ma non comparirà, né in PowerShell né nel Prompt dei comandi, finché non installi lo strumento (circa 6 MB). <button type="button" class="link-button" [disabled]="busy" (click)="installTool('oh-my-posh')">Installa ora</button></div>}
+        <section class="prompt-intro">
+          <div class="behavior-head">
+            <div><h2>Prompt informativo</h2><p>Il prompt è il testo che compare prima del cursore. Spunta le informazioni che vuoi vedere: il prompt si attiva da solo.</p></div>
+            <label class="check-label"><input type="checkbox" [ngModel]="config.prompt?.enabled ?? false" (ngModelChange)="setPromptEnabled($event)"> Attivo</label>
+          </div>
+          <p class="prompt-preview" aria-label="Anteprima del prompt"><span class="prompt-preview-label">Anteprima</span><code>@for (part of promptPreview; track $index) {<span [style.color]="part.color ?? null">{{part.text}} </span>}@if (!promptPreview.length) {<span class="prompt-preview-off">PS C:\Progetti</span>}&gt;</code></p>
+        </section>
+        <div class="command-table-wrap">
+          <table class="command-table prompt-table" id="prompt-segments" tabindex="-1" [attr.aria-describedby]="fieldIssue('prompt-segments') ? 'issue-prompt-segments' : null">
+            <thead><tr><th scope="col">Mostra</th><th scope="col">Target</th><th scope="col">Percorso</th><th scope="col">Colore</th><th scope="col">Posizione</th></tr></thead>
+            <tbody>
+              @for (row of promptRows; track row.option.id) {
+                <tr [class.prompt-row-off]="!row.segment">
+                  <td><input type="checkbox" [ngModel]="!!row.segment" (ngModelChange)="toggleSegment(row.option.id, $event)" [attr.aria-label]="'Mostra ' + row.option.label"></td>
+                  <td><strong>{{row.option.label}}</strong><small>{{row.option.description}}</small>
+                    @if (row.segment && row.option.id === 'duration') {<label class="prompt-threshold">Mostra se supera <input [id]="'segment-' + row.index + '-threshold'" [attr.aria-invalid]="fieldIssue('segment-' + row.index + '-threshold') ? true : null" [attr.aria-describedby]="fieldIssue('segment-' + row.index + '-threshold') ? 'issue-' + ('segment-' + row.index + '-threshold') : null" type="number" min="0" [ngModel]="row.segment.thresholdMs ?? null" (ngModelChange)="setPromptThreshold(row.segment, $event)" placeholder="2000"> ms</label><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'segment-' + row.index + '-threshold' }"></ng-container>}
+                  </td>
+                  <td>
+                    @if (row.segment && row.option.id === 'directory') {<select class="path-select" aria-label="Come mostrare il percorso" [ngModel]="row.segment.pathStyle ?? 'short'" (ngModelChange)="setPathStyle(row.segment, $event)">@for (style of pathStyles; track style.id) {<option [value]="style.id">{{style.label}}</option>}</select><small class="path-sample">{{pathSample(row.segment)}}</small>}
+                  </td>
+                  <td>
+                    @if (row.segment) {<span class="color-field" [class.has-error]="fieldIssue('segment-' + row.index + '-color')">
+                      <input type="color" class="color-swatch" [ngModel]="swatchColor(row.segment)" (ngModelChange)="pickColor(row.segment, $event)" [attr.aria-label]="'Scegli il colore di ' + row.option.label" title="Scegli un colore">
+                      <input [id]="'segment-' + row.index + '-color'" class="color-text" aria-label="Codice colore" [attr.aria-invalid]="fieldIssue('segment-' + row.index + '-color') ? true : null" [attr.aria-describedby]="fieldIssue('segment-' + row.index + '-color') ? 'issue-' + ('segment-' + row.index + '-color') : null" [ngModel]="row.segment.color ?? ''" (ngModelChange)="setOptional(row.segment, 'color', $event)" placeholder="Predefinito" pattern="#[0-9a-fA-F]{6}" spellcheck="false" autocomplete="off">
+                    </span><ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'segment-' + row.index + '-color' }"></ng-container>}
+                  </td>
+                  <td class="row-actions">
+                    @if (row.segment) {<button type="button" class="secondary" (click)="moveSegment(row.index,-1)" [disabled]="row.index === 0" [attr.aria-label]="'Sposta in alto ' + row.option.label">↑</button> <button type="button" class="secondary" (click)="moveSegment(row.index,1)" [disabled]="row.index === segments.length - 1" [attr.aria-label]="'Sposta in basso ' + row.option.label">↓</button>}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <ng-container [ngTemplateOutlet]="fieldError" [ngTemplateOutletContext]="{ $implicit: 'prompt-segments' }"></ng-container>
+      }
+      @if (section === 'team') {
+        <div class="heading"><div><h1 id="editor-heading" tabindex="-1">Pacchetto team</h1><p>Usa la configurazione condivisa dal tuo team: comandi rapidi, workspace, tema e strumenti consigliati. Le tue modifiche personali restano al loro posto.</p></div></div>
+        <section class="item team-active">
+          <span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg></span>
+          <div class="team-active-text"><h2>Pacchetto attivo</h2>
+            @if (config.team; as team) {<p><strong>{{team.packageId}}</strong> · versione {{team.installedVersion}}</p>} @else {<p>Nessun pacchetto attivo. Importane uno qui sotto per iniziare.</p>}
+          </div>
+          @if (config.team) {<span class="team-badge">Attivo</span>}
+        </section>
+        <section class="item team-flow" aria-labelledby="team-flow-title">
+          <h2 id="team-flow-title">Importa un pacchetto</h2>
+          <ol class="team-steps" aria-label="Passaggi dell’importazione">
+            <li [class.current]="!teamContent" [class.done]="!!teamContent"><span class="team-step-dot">@if (teamContent) {<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>}  @else {1}</span>Scegli il file</li>
+            <li [class.current]="!!teamContent && !teamPreview" [class.done]="!!teamPreview"><span class="team-step-dot">@if (teamPreview) {<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>} @else {2}</span>Controlla le modifiche</li>
+            <li [class.current]="!!teamPreview"><span class="team-step-dot">3</span>Conferma</li>
+          </ol>
+          <div class="team-import">
+            <label class="team-drop" [class.has-file]="!!teamContent">
+              <span class="team-drop-icon" aria-hidden="true">@if (teamContent) {<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3.5V8h4.5M9 13h6M9 16.5h4"/></svg>} @else {<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4.5 15v3.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>}</span>
+              <span class="team-drop-text"><strong>{{teamFilename || 'Seleziona un pacchetto JSON'}}</strong><small>{{teamContent ? 'Clicca per scegliere un altro file.' : 'Un file .json fornito dal tuo team.'}}</small></span>
+              <input type="file" accept="application/json,.json" (change)="selectTeamFile($event)" aria-label="Seleziona un pacchetto JSON">
+            </label>
+            <button type="button" [class.primary]="!!teamContent && !teamPreview" [class.secondary]="!teamContent || !!teamPreview" [disabled]="!teamContent || busy" (click)="previewTeam()">Esamina pacchetto</button>
+          </div>
+          <p class="team-warning"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6v5.5c0 4.2-2.9 7.3-7 9-4.1-1.7-7-4.8-7-9V6z"/><path d="M12 8.5v4M12 15.6v.01"/></svg><span>Un pacchetto può contenere comandi eseguibili. Importa solo file provenienti da fonti attendibili.</span></p>
+        </section>
+        @if(teamPreview; as teamResult) {<section class="item team-result" aria-labelledby="team-result-title">
+          <div class="section-heading"><div><h2 id="team-result-title">Cosa cambierà</h2><p>Importare salva il pacchetto e le preferenze. Per modificare il terminale serve poi un’applicazione.</p></div>@if(!canInstallTeam && !busy) {<span class="stale">Anteprima da aggiornare</span>}</div>
+          <ul class="team-changes">@for(change of teamResult.changes; track $index) {<li><span class="team-change-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>{{change}}</li>} @empty {<li class="team-nochange">Nessuna modifica: il pacchetto è già allineato.</li>}</ul>
+          @if (teamResult.files.length) {<div class="team-files"><p>File che verranno generati</p>@for(file of teamResult.files; track $index) {<details><summary>{{file.path}}</summary><pre>{{file.content}}</pre></details>}</div>}
+          <div class="team-confirm"><button type="button" class="primary" [disabled]="!canInstallTeam" (click)="installTeam()">Conferma importazione</button><small>Non cambia ancora il terminale: lo farà il prossimo Salva.</small></div>
+        </section>}
+      }
+      @if (section === 'tools') {
+        <div class="heading"><div><h1>Strumenti</h1><p>Controlla gli strumenti disponibili e installa quelli che ti servono.</p></div><button type="button" class="secondary" (click)="refreshTools()">Aggiorna stato</button></div>
+        @if (!bridge.desktop) {<div class="alert">Stati dimostrativi: il rilevamento e l’installazione sono disponibili nell’app desktop.</div>}
+        @if(toolList; as tools) {
+          @if (tools.length) {
+            <div class="tool-toolbar">
+              <p class="tool-summary" aria-live="polite"><strong>{{toolSummary.installed}} di {{toolSummary.total}}</strong> installati@if (toolSummary.missing) { · {{toolSummary.missing}} da installare}</p>
+              <div class="tool-filter" role="group" aria-label="Filtra gli strumenti">
+                <button type="button" [class.active]="toolFilter === 'all'" [attr.aria-pressed]="toolFilter === 'all'" (click)="toolFilter = 'all'">Tutti</button>
+                <button type="button" [class.active]="toolFilter === 'installed'" [attr.aria-pressed]="toolFilter === 'installed'" (click)="toolFilter = 'installed'">Installati</button>
+                <button type="button" [class.active]="toolFilter === 'missing'" [attr.aria-pressed]="toolFilter === 'missing'" (click)="toolFilter = 'missing'">Da installare</button>
+              </div>
+            </div>
+            @for (group of toolGroups; track group.id) {
+              <section class="item tool-list" [attr.aria-labelledby]="'tools-' + group.id">
+                <header class="tool-group">
+                  <span class="sec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">@switch (group.id) {@case ('shell') {<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="m7.5 10 3 2.5-3 2.5M13 15h3.5"/>} @case ('prompt') {<path d="m5 7 5 5-5 5"/><path d="M12.5 17.5h7"/><path d="M14 6.5h5.5"/>} @default {<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>}}</svg></span>
+                  <div><h2 id="tools-{{group.id}}">{{group.label}}</h2><span>{{group.hint}}</span></div>
+                </header>
+                @for (tool of group.tools; track tool.id) {
+                  <div class="tool-row" [class.is-busy]="busyToolId === tool.id">
+                    <span class="tool-badge" [class.installed]="tool.installed" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">@switch (group.id) {@case ('shell') {<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="m7.5 10 3 2.5-3 2.5M13 15h3.5"/>} @case ('prompt') {<path d="m5 7 5 5-5 5"/><path d="M12.5 17.5h7"/>} @default {<path d="M13 3 5.5 13.5H11L10 21l7.5-10.5H12z"/>}}</svg>
+                      @if (tool.installed) {<i class="tool-check"><svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 6.3 2.2 2.2 4.8-5"/></svg></i>}
+                    </span>
+                    <div class="tool-name">
+                      <strong>{{tool.name}}@if (tool.recommended) { <span class="tool-recommended">consigliato</span>}</strong>
+                      <small>{{toolInfo[tool.id]?.text}}</small>
+                      <span class="tool-state" [class.installed]="tool.installed">{{tool.installed ? 'Installato' : 'Non installato'}}{{tool.version ? ' · versione ' + tool.version : ''}}</span>
+                    </div>
+                    <div class="tool-actions">
+                      @if (busyToolId === tool.id) {<span class="tool-working" role="status">Un momento…</span>}
+                      @else {
+                        @if (!tool.installed && tool.canInstall) {<button type="button" class="secondary" [disabled]="busy" (click)="installTool(tool.id)">Installa</button>}
+                        @if (!tool.installed && !tool.canInstall) {<a class="tool-link" [href]="tool.manualUrl" target="_blank" rel="noopener noreferrer">Scarica dal sito<span class="sr-only"> di {{tool.name}} (si apre nel browser)</span></a>}
+                        @if (tool.canUninstall) {<button type="button" class="text-danger" [disabled]="busy" (click)="uninstallTool(tool.id)">Disinstalla</button>}
+                      }
+                    </div>
+                  </div>
+                }
+              </section>
+            } @empty {
+              <div class="empty-history"><h2>{{toolFilter === 'installed' ? 'Nessuno strumento installato' : 'Hai installato tutto'}}</h2><p>{{toolFilter === 'installed' ? 'Installa uno strumento dall’elenco per vederlo qui.' : 'Non c’è niente da aggiungere: tutti gli strumenti del catalogo sono già disponibili.'}}</p><button type="button" class="secondary" (click)="toolFilter = 'all'">Mostra tutti</button></div>
+            }
+          } @else {<p>Nessuno strumento disponibile nel catalogo.</p>}
+        } @else {<p class="tool-loading" role="status">Controllo gli strumenti installati…</p>}
+      }
+      @if (section === 'history') {
+        <div class="heading"><div><h1>Cronologia</h1><p>Controlla le applicazioni precedenti e ripristina l’ultima modifica.</p></div><button type="button" class="secondary" (click)="refreshHistory()">Aggiorna</button></div>
+        @if(!bridge.desktop) {<div class="alert">La cronologia dei file è disponibile nell’app desktop.</div>}
+        @if(history; as entries) {
+          @if(!entries.length) {<section class="item"><div class="empty-history"><h2>Nessuna applicazione precedente</h2><p>Qui troverai i backup creati quando applichi la configurazione.</p></div></section>}
+          @else {
+            <div class="command-table-wrap">
+              <table class="command-table history-table">
+                <thead><tr><th scope="col">Data</th><th scope="col">File</th><th scope="col">Identificativo</th><th scope="col">Stato</th></tr></thead>
+                <tbody>
+                  @for(entry of entries; track entry.id; let i = $index) {
+                    <tr>
+                      <td><strong>{{formatHistoryDate(entry.timestamp)}}</strong></td>
+                      <td>{{entry.fileCount}}</td>
+                      <td class="history-id">{{entry.id}}</td>
+                      <td class="row-actions">@if(i === 0 && entry.canRestore) {<button type="button" class="secondary" (click)="restoreLatest()">Ripristina ultima</button>} @else {<span class="tool-status">{{entry.canRestore ? 'Backup precedente' : 'Non ripristinabile'}}</span>}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        }
+      }
+      </fieldset>
+    </div>
+    <footer class="action-bar">
+      <div class="operation-status" [class.is-dirty]="dirty && !busy" [class.is-warn]="!!issues.length || loadFailed">
+        <span class="status-dot" aria-hidden="true"></span>
+        <div><strong>{{ busy ? 'Operazione in corso' : loadFailed ? 'Configurazione non caricata' : issues.length ? 'Campi da correggere' : dirty ? 'Modifiche non salvate' : 'Tutto salvato' }}</strong>
+        <small id="save-status" aria-live="polite">{{saveStatus}}</small></div>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" [disabled]="busy || loadFailed" aria-describedby="save-status" (click)="operation('save')">@if (operationInProgress === 'save') {<span class="spinner" aria-hidden="true"><svg viewBox="0 0 48 40" focusable="false"><g class="sp-l" clip-path="url(#sp-clip-l)"><rect class="sp-win" x="2" y="3" width="44" height="34" rx="6"/><path class="sp-bar" d="M2 12V9a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v3z"/><circle class="sp-d1" cx="8.5" cy="7.5" r="1.4"/><circle class="sp-d2" cx="13" cy="7.5" r="1.4"/><circle class="sp-d3" cx="17.5" cy="7.5" r="1.4"/><path class="sp-prompt" d="m9 17 7 5-7 5"/><path class="sp-cursor" d="M19 29h6"/></g><g class="sp-r" clip-path="url(#sp-clip-r)"><rect class="sp-win" x="2" y="3" width="44" height="34" rx="6"/><path class="sp-bar" d="M2 12V9a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v3z"/></g></svg></span>}{{operationInProgress === 'save' ? 'Salvataggio…' : 'Salva'}}</button>
+      </div>
+    </footer>
+    @if (operationInProgress === 'save') {
+      <div class="save-loader" role="status" aria-live="polite">
+        <div class="save-loader-card">
+          <span class="spinner spinner-large" aria-hidden="true"><svg viewBox="0 0 48 40" focusable="false"><g class="sp-l" clip-path="url(#sp-clip-l)"><rect class="sp-win" x="2" y="3" width="44" height="34" rx="6"/><path class="sp-bar" d="M2 12V9a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v3z"/><circle class="sp-d1" cx="8.5" cy="7.5" r="1.4"/><circle class="sp-d2" cx="13" cy="7.5" r="1.4"/><circle class="sp-d3" cx="17.5" cy="7.5" r="1.4"/><path class="sp-prompt" d="m9 17 7 5-7 5"/><path class="sp-cursor" d="M19 29h6"/></g><g class="sp-r" clip-path="url(#sp-clip-r)"><rect class="sp-win" x="2" y="3" width="44" height="34" rx="6"/><path class="sp-bar" d="M2 12V9a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v3z"/></g></svg></span>
+          <strong>Salvataggio in corso</strong>
+          <small>Salvo le preferenze e aggiorno le shell. Può richiedere qualche secondo.</small>
+        </div>
+      </div>
+    }
+    @if (toast; as t) {<div class="toast" [class.toast-error]="t.kind === 'error'" [attr.role]="t.kind === 'error' ? 'alert' : 'status'"><span class="toast-icon" aria-hidden="true">{{t.kind === 'error' ? '!' : '✓'}}</span><span>{{t.text}}</span><button type="button" class="toast-close" aria-label="Chiudi notifica" (click)="dismissToast()">×</button></div>}
+  </main>
+  @if (frameworkDraft; as draft) {
+    <div class="walkthrough-backdrop" (keydown.escape)="closeFramework()">
+      <form class="walkthrough framework-dialog" role="dialog" aria-modal="true" aria-labelledby="framework-dialog-title" (ngSubmit)="createFrameworkCommand()">
+        <h2 id="framework-dialog-title">Nuovo comando per {{draft.framework.label}}</h2>
+        <p>Il comando avvia il progetto dalla cartella corrente.</p>
+        <label>Come vuoi chiamarlo?
+          <span class="framework-name-field"><span class="framework-prefix" aria-hidden="true">{{quickCommandPrefix}}</span><input id="framework-name" name="name" [(ngModel)]="draft.name" (ngModelChange)="draft.error = ''" autocomplete="off" spellcheck="false" [attr.aria-invalid]="draft.error ? true : null" aria-describedby="framework-name-error"></span>
+        </label>
+        <p id="framework-name-error" class="field-error" role="alert">{{draft.error}}</p>
+        <label>Porta <small>facoltativa, di solito {{draft.framework.port}}</small>
+          <input id="framework-port" class="framework-input" name="port" inputmode="numeric" [(ngModel)]="draft.port" (ngModelChange)="draft.portError = ''" autocomplete="off" [placeholder]="'' + draft.framework.port" [attr.aria-invalid]="draft.portError ? true : null" aria-describedby="framework-port-error">
+        </label>
+        <p id="framework-port-error" class="field-error" role="alert">{{draft.portError}}</p>
+        <label>Altri parametri <small>facoltativi, separati da spazio</small>
+          <input id="framework-extra" class="framework-input" name="extra" [(ngModel)]="draft.extra" (ngModelChange)="draft.extraError = ''" autocomplete="off" spellcheck="false" [placeholder]="draft.framework.extraExample" [attr.aria-invalid]="draft.extraError ? true : null" aria-describedby="framework-extra-error">
+        </label>
+        <p id="framework-extra-error" class="field-error" role="alert">{{draft.extraError}}</p>
+        <p class="framework-preview"><span>Comando finale</span><code>{{frameworkPreview(draft)}}</code></p>
+        <div class="framework-actions"><button type="button" class="secondary" (click)="closeFramework()">Annulla</button><button type="submit" class="primary">Crea comando</button></div>
+      </form>
+    </div>
+  }
+  @if (toolOffer; as offer) {
+    <div class="walkthrough-backdrop" (keydown.escape)="declineToolOffer()">
+      <section class="walkthrough tool-offer" role="dialog" aria-modal="true" aria-labelledby="tool-offer-title">
+        <h2 id="tool-offer-title">Installa gli strumenti consigliati</h2>
+        <p>Queste funzioni di CLI Superpower usano programmi esterni. Li installiamo solo per il tuo utente, senza diritti di amministratore, e puoi disinstallarli dal pannello Strumenti.</p>
+        <ul class="tool-offer-list">@for (tool of offer; track tool.id) {<li><strong>{{tool.name}}</strong><span>{{toolReasons[tool.id] ?? ''}}</span></li>}</ul>
+        <div class="framework-actions"><button type="button" class="secondary" [disabled]="busy" (click)="declineToolOffer()">Non ora</button><button type="button" class="primary" [disabled]="busy" (click)="acceptToolOffer()">{{busy ? 'Installazione…' : 'Installa'}}</button></div>
+      </section>
+    </div>
+  }
+  @if (walkthroughStep !== null) {
+    <div class="walkthrough-backdrop" (keydown.escape)="closeWalkthrough()">
+      <section class="walkthrough guide" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title" aria-describedby="walkthrough-text">
+        <button type="button" class="guide-close" aria-label="Chiudi la guida" (click)="closeWalkthrough()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        <div class="guide-art" aria-hidden="true">
+          @switch (walkthroughStep) {
+            @case (0) {
+              <svg viewBox="0 0 440 128" focusable="false">
+                <g><rect x="22" y="22" width="120" height="84" rx="8" fill="#172435"/><rect x="22" y="22" width="120" height="16" rx="8" fill="#243a52"/><rect x="22" y="30" width="120" height="8" fill="#243a52"/><circle cx="34" cy="30" r="2.4" fill="#62cda9"/><path d="m34 54 6 5-6 5" stroke="#62cda9" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="46" y="62" width="40" height="3.5" rx="1.7" fill="#8fa5bb"/><rect x="34" y="78" width="70" height="3.5" rx="1.7" fill="#4b6580"/><rect x="34" y="88" width="48" height="3.5" rx="1.7" fill="#4b6580"/></g>
+                <g><rect x="160" y="22" width="120" height="84" rx="8" fill="#1f3d63" stroke="#62cda9" stroke-width="2"/><rect x="160" y="22" width="120" height="16" rx="8" fill="#2b5083"/><rect x="160" y="30" width="120" height="8" fill="#2b5083"/><circle cx="172" cy="30" r="2.4" fill="#fff"/><path d="m172 54 6 5-6 5" stroke="#9fd0ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="184" y="62" width="40" height="3.5" rx="1.7" fill="#9fd0ff"/><rect x="172" y="78" width="70" height="3.5" rx="1.7" fill="#6f95c0"/><rect x="172" y="88" width="48" height="3.5" rx="1.7" fill="#6f95c0"/></g>
+                <g><rect x="298" y="22" width="120" height="84" rx="8" fill="#101820"/><rect x="298" y="22" width="120" height="16" rx="8" fill="#1b2733"/><rect x="298" y="30" width="120" height="8" fill="#1b2733"/><circle cx="310" cy="30" r="2.4" fill="#d5a24b"/><path d="m310 54 6 5-6 5" stroke="#c5cdd6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="322" y="62" width="40" height="3.5" rx="1.7" fill="#c5cdd6"/><rect x="310" y="78" width="70" height="3.5" rx="1.7" fill="#4b5966"/><rect x="310" y="88" width="48" height="3.5" rx="1.7" fill="#4b5966"/></g>
+              </svg>
+            }
+            @case (1) {
+              <svg viewBox="0 0 440 128" focusable="false">
+                <circle cx="52" cy="44" r="15" fill="#172435"/><circle cx="92" cy="44" r="15" fill="#317bc4"/><circle cx="132" cy="44" r="15" fill="#62cda9"/><circle cx="172" cy="44" r="15" fill="#d5a24b"/><circle cx="212" cy="44" r="15" fill="#c9566b"/><circle cx="92" cy="44" r="21" fill="none" stroke="#317bc4" stroke-width="2"/>
+                <rect x="30" y="80" width="190" height="26" rx="6" fill="#fff" stroke="#c9d6e3"/><text x="44" y="97" font-family="Consolas,monospace" font-size="12" fill="#3e79b5">Aa  Cascadia Mono</text>
+                <rect x="250" y="30" width="160" height="76" rx="8" fill="#172435"/><rect x="264" y="46" width="42" height="18" rx="9" fill="#62cda9"/><text x="272" y="59" font-family="Consolas,monospace" font-size="11" font-weight="700" fill="#10241c">/run</text><rect x="264" y="76" width="104" height="3.5" rx="1.7" fill="#4b6580"/><rect x="264" y="86" width="72" height="3.5" rx="1.7" fill="#4b6580"/>
+              </svg>
+            }
+            @default {
+              <svg viewBox="0 0 440 128" focusable="false">
+                <rect x="70" y="40" width="130" height="48" rx="10" fill="#317bc4"/><path d="m97 65 8 8 16-17" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="132" y="58" width="50" height="5" rx="2.5" fill="#bcd7f1"/><rect x="132" y="68" width="34" height="5" rx="2.5" fill="#bcd7f1"/>
+                <path d="M222 64h40" stroke="#b8c4d1" stroke-width="2" stroke-dasharray="3 5" stroke-linecap="round"/>
+                <rect x="280" y="40" width="90" height="48" rx="10" fill="#fff" stroke="#c9d6e3" stroke-width="1.5"/><path d="M304 66a14 14 0 1 0 4-10l-5 5" stroke="#5d6e82" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M303 52v9h9" stroke="#5d6e82" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            }
+          }
+        </div>
+        <p class="guide-step">Passo {{walkthroughStep + 1}} di {{walkthroughSteps.length}}</p>
+        <h2 id="walkthrough-title" tabindex="-1">{{walkthroughSteps[walkthroughStep].title}}</h2>
+        <p id="walkthrough-text">{{walkthroughSteps[walkthroughStep].text}}</p>
+        <ol class="guide-dots" aria-label="Passaggi della guida">
+          @for (step of walkthroughSteps; track $index) {<li [class.current]="$index === walkthroughStep" [class.done]="$index < walkthroughStep" [attr.aria-current]="$index === walkthroughStep ? 'step' : null"><span class="sr-only">{{step.title}}</span></li>}
+        </ol>
+        <div class="walkthrough-actions">
+          <button type="button" class="link-button" (click)="closeWalkthrough()">Salta la guida</button>
+          <span>
+            @if (walkthroughStep > 0) {<button type="button" class="secondary" (click)="previousWalkthroughStep()">Indietro</button>}
+            <button type="button" class="primary" (click)="nextWalkthroughStep()">{{walkthroughStep < walkthroughSteps.length - 1 ? 'Avanti' : 'Inizia'}}</button>
+          </span>
+        </div>
+      </section>
+    </div>
+  }
+</div>

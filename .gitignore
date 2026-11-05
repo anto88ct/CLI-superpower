@@ -1,0 +1,7 @@
+/target/
+/app/node_modules/
+/app/dist/
+/app/.angular/
+/app/src-tauri/gen/
+/app/src-tauri/resources/
+*.log
